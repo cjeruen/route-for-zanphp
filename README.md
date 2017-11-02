@@ -51,15 +51,10 @@ return [
 
 <?php
 
-use Com\JeRuen\Zan\Routing\FastRoute\Route;
+use Com\JeRuen\Zan\Routing\FastRoute\R as Route;
 
-/** @var \Com\JeRuen\Zan\Routing\FastRoute\Route $route */
-$route = Route::getInstance();
-
-/** @var  \FastRoute\RouteCollector */
-$r = $route->getRouteController();
-
-$r->get('/index', 'index/index/index');
+Route::get('/a', 'index/index/index');
+Route::addRoute('POST', '/a', 'index/index/index');
 
 ```
 
