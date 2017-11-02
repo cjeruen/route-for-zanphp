@@ -6,6 +6,7 @@
  * Time: 上午7:53
  */
 
+use Com\JeRuen\Zan\Routing\Route;
 use ZanPHP\Contracts\Config\Repository;
 use ZanPHP\HttpFoundation\Request\Request;
 use ZanPHP\Routing\IRouter;
@@ -59,8 +60,8 @@ class Router implements IRouter
             'query' => []
         );
 
-        /** @var \Com\JeRuen\Zan\Routing\FastRoute\Route $route */
-        $route = Route::getInstance();
+        /** @var \Com\JeRuen\Zan\Routing\FastRoute\RouteManager $route */
+        $route = make(Route::class);
 
         $dispatcher = $route->getDispatcher();
 

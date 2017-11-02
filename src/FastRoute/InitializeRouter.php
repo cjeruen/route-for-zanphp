@@ -6,8 +6,11 @@
  * Time: 上午7:53
  */
 
+use ZanPHP\Container\Container;
 use ZanPHP\Contracts\Config\Repository;
 use ZanPHP\Contracts\Foundation\Application;
+
+use Com\JeRuen\Zan\Routing\Route as RouteContract;
 
 class InitializeRouter
 {
@@ -31,17 +34,20 @@ class InitializeRouter
         $routePath = $application->getBasePath() . '/' . $routePath;
 
 
-        /** @var \Com\JeRuen\Zan\Routing\FastRoute\Route $route */
-        $route = Route::getInstance();
+        /** @var \Com\JeRuen\Zan\Routing\FastRoute\RouteManager $route */
+        $routeManager = RouteManager::getInstance();
 
-        $route->initRouteCollector();
+        $container = Container::getInstance();
+        $container->instance(RouteContract::class, $routeManager);
+
+        $routeManager->initRouteCollector();
 
         // load the routing rule
         if (file_exists($routePath)) {
             include $routePath;
         }
 
-        $route->initDispatcher();
+        $routeManager->initDispatcher();
 
     }
 
