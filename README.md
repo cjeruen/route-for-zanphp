@@ -41,6 +41,10 @@ return [
 
     'router_class' => 'Com\JeRuen\Zan\Routing\FastRoute\Router',
     'router_path' => 'src/routing.php',
+    
+    // compatible use zan router if not found. default false
+    // 是否开启兼容zan路由(未匹配则找zan默认路由匹配)
+    'router_compatible' => true,
 
 ];
 ```

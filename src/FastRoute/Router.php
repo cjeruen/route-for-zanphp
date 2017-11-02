@@ -6,6 +6,7 @@
  * Time: 上午7:53
  */
 
+use ZanPHP\Contracts\Config\Repository;
 use ZanPHP\HttpFoundation\Request\Request;
 use ZanPHP\Routing\IRouter;
 
@@ -13,6 +14,9 @@ use FastRoute;
 
 class Router implements IRouter
 {
+
+    private $notFoundHandler = 'exception/error/notFound';
+    private $methodNotAllowedHandler = 'exception/error/methodNotAllowed';
 
     public function dispatch(Request $request)
     {
@@ -22,9 +26,14 @@ class Router implements IRouter
         $handler = $routeInfo['handler'];
         $query = $routeInfo['query'];
 
-        // if not found use default zan router
-        if ('not_found' === $handler) {
-            $handler = $request->getRoute();
+        /** @var \ZanPHP\Contracts\Config\Repository $repository */
+        $repository = make(Repository::class);
+
+        if ($repository->get('route.router_compatible', false)) {
+            // if not found use default zan router
+            if ($this->notFoundHandler === $handler) {
+                $handler = $request->getRoute();
+            }
         }
 
         $separator = "/";
@@ -72,10 +81,10 @@ class Router implements IRouter
 
         switch ($routeInfo[0]) {
             case FastRoute\Dispatcher::NOT_FOUND:
-                $return['handler'] = 'not_found';
+                $return['handler'] = $this->notFoundHandler;
                 break;
             case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-                $return['handler'] = 'exception/error/methodNotAllowed';
+                $return['handler'] = $this->methodNotAllowedHandler;
                 break;
             case FastRoute\Dispatcher::FOUND:
                 $return['handler'] = $routeInfo[1];
