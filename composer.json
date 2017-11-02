@@ -1,0 +1,33 @@
+{
+    "name": "cjeruen/route-for-zanphp",
+    "description": "route for zanphp",
+    "keywords": ["zanphp", "FastRoute"],
+    "type": "library",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/cjeruen/route-for-zanphp/issues",
+        "source": "https://github.com/laravel/route-for-zanphp"
+    },
+    "authors": [
+        {
+            "name": "Hui Chen",
+            "email": "cjeruen@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "zanphp/zan": "dev-master",
+        "nikic/fast-route": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Com\\JeRuen\\Zan\\Routing\\": "src/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "secure-http": false
+    },
+    "prefer-stable": false,
+    "minimum-stability": "dev"
+}
